@@ -10,3 +10,5 @@ w budowie...
 - Ilość pokoi
 - Możlwiość dodania pokoi
 )
+
+__Robione na podstawie login-api jak coś__
