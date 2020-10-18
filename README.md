@@ -19,6 +19,7 @@ w budowie...
 - Usunięto możliwość zakładania konta
 - Posprzątano w kodzie
 - Zmniejszono ważność plików cookie do 10 minut
+- Dodano stronę błędu 404
 ```
 
 __Robione na podstawie login-api jak coś__
