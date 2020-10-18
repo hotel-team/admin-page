@@ -8,7 +8,7 @@ const path = require('path');
 const cookieSession = require('cookie-session');
 const zseitszyfrowanie = require('bcryptjs');
 const dbConnection = require('./database');
-const { body, validationResult } = require('express-validator');
+const { body, validationResult, Result } = require('express-validator');
 const colors = require('colors');
 const app = express();
 app.use(express.urlencoded({extended:false}));
@@ -47,8 +47,12 @@ app.get('/', ifNotLoggedin, (req,res,next) => {
         res.render('home',{
             name:rows[0].name
         });
+        console.log(`Użytkownik ${rows[0].name} został zalogowany`)
     });
-    
+    dbConnection.execute("SELECT COUNT(*) AS ile FROM lista_pokoi")
+    .then(([rows]) => {
+        console.log(`Liczba pokoi wpisanych do bazy: ${[rows[0].ile]}`);
+    });
 });
 // Koniec
 
@@ -73,7 +77,7 @@ app.post('/', ifLoggedin, [
         
         dbConnection.execute("SELECT * FROM `users` WHERE `email`=?",[user_email])
         .then(([rows]) => {
-            console.log(rows[0].password);
+            console.log(`Odebrano szyfrowanie: ${rows[0].password}`);
             zseitszyfrowanie.compare(user_pass, rows[0].password).then(compare_result => {
                 if(compare_result === true){
                     req.session.isLoggedIn = true;
@@ -118,5 +122,6 @@ app.get('/logout',(req,res)=>{
 app.use('/', (req,res) => {
     res.status(404).send('<h1>Błąd 404</h1>');
 });
+
 
 app.listen(3001, () => console.log("Serwer został uruchomiony...".blue));
