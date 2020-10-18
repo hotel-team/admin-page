@@ -16,6 +16,9 @@ w budowie...
 - Od dzisiaj jeżeli użytkownik wysyła zapytanie do serwera, to wysyłane jest powiadomienie do konsoli
 - Przy logowaniu w konsoli pokazuje się liczba wszystkich pokoi wpisanych do bazy
 - Dodano powiadomienia o otrzymaniu klucza deszyfrującego hasła
+- Usunięto możliwość zakładania konta
+- Posprzątano w kodzie
+- Zmniejszono ważność plików cookie do 10 minut
 ```
 
 __Robione na podstawie login-api jak coś__
