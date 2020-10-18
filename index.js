@@ -53,6 +53,10 @@ app.get('/', ifNotLoggedin, (req,res,next) => {
     .then(([rows]) => {
         console.log(`Liczba pokoi wpisanych do bazy: ${[rows[0].ile]}`);
     });
+    dbConnection.execute("SELECT COUNT(*) AS ilezajetych FROM lista_pokoi WHERE zajety = 1")
+    .then(([rows]) => {
+        console.log(`Liczba zajętych pokoi: ${[rows[0].ilezajetych]}`);
+    });
 });
 // Koniec
 
@@ -112,7 +116,7 @@ app.post('/', ifLoggedin, [
 // Koniec modułu logowania
 
 // Moduł wylogowywania
-app.get('/logout',(req,res)=>{
+app.get('/admin/wyloguj',(req,res)=>{
     // Ususwanie sesji użytkownika
     req.session = null;
     res.redirect('/');
@@ -120,7 +124,7 @@ app.get('/logout',(req,res)=>{
 // Koniec modułu
 
 app.use('/', (req,res) => {
-    res.status(404).send('<h1>Błąd 404</h1>');
+    res.status(404).render('404');
 });
 
 
