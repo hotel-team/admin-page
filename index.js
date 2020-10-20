@@ -14,6 +14,7 @@ const app = express();
 app.use(express.urlencoded({extended:false}));
 
 // Silnik
+app.use(express.static(__dirname + '/public'));
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine','ejs');
 
@@ -42,20 +43,8 @@ const ifLoggedin = (req,res,next) => {
 
 // Stona główna
 app.get('/', ifNotLoggedin, (req,res,next) => {
-    dbConnection.execute("SELECT `name` FROM `users` WHERE `id`=?",[req.session.userID])
-    .then(([rows]) => {
-        res.render('home',{
-            name:rows[0].name
-        });
-        console.log(`Użytkownik ${rows[0].name} został zalogowany`)
-    });
-    dbConnection.execute("SELECT COUNT(*) AS ile FROM lista_pokoi")
-    .then(([rows]) => {
-        console.log(`Liczba pokoi wpisanych do bazy: ${[rows[0].ile]}`);
-    });
-    dbConnection.execute("SELECT COUNT(*) AS ilezajetych FROM lista_pokoi WHERE zajety = 1")
-    .then(([rows]) => {
-        console.log(`Liczba zajętych pokoi: ${[rows[0].ilezajetych]}`);
+    res.render('home.ejs', {
+
     });
 });
 // Koniec

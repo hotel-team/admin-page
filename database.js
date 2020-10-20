@@ -3,6 +3,6 @@ const dbConnection = mysql.createPool({
     host     : 'localhost', 
     user     : 'root',        
     password : '',    
-    database : 'admin-panel'      
+    database : 'hotel-api'      
 }).promise();
 module.exports = dbConnection;
